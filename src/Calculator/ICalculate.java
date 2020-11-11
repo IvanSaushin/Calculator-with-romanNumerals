@@ -29,7 +29,7 @@ public interface ICalculate {
 
     static String arabicToRoman(long arabNum){
         String roman="";
-        Roman[] values= Roman.values();
+        RomanNumerals[] values= RomanNumerals.values();
         for (int i = values.length-1; i>=0; i--) {
             while(arabNum>=values[i].value){
                 roman+=values[i];
@@ -49,7 +49,7 @@ public interface ICalculate {
 
     static int romanToArabic(String romanNumber) {
         int arabic = 0;
-        Roman[] romanNumerals= Roman.values();
+        RomanNumerals[] romanNumerals= RomanNumerals.values();
 
         for (int i = 0; i < romanNumerals.length; i++) {
             if (romanNumber.equals(romanNumerals[i].name())) {
@@ -60,12 +60,42 @@ public interface ICalculate {
         return arabic;
     }
 
-    enum Roman{
+    static boolean isArabicNumber(String firstNum, String secondNum) throws NumberFormatException {
+        try {
+            Integer.parseInt(firstNum);
+            Integer.parseInt(secondNum);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+
+    static boolean isRomanNumber(String firNum, String secNum) {
+        boolean result = false;
+        char[] romanString;
+
+        try {
+            romanString = firNum.concat(secNum).toCharArray();
+            for (char c : romanString) {
+                if (c == 'I' || c == 'V' || c == 'X') {
+                    result = true;
+                } else {
+                    result = false;
+                    break;
+                }
+            }
+        } catch (NumberFormatException ignored) {
+        }
+        return result;
+    }
+
+    enum RomanNumerals{
         I(1), II(2), III(3), IV(4),V(5),
         VI(6), VII(7), VIII(8), IX(9), X(10);
         int value;
 
-        Roman(int value) {
+        RomanNumerals(int value) {
             this.value = value;
         }
     };
