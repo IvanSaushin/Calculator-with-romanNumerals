@@ -6,7 +6,7 @@ public class CalculatorApp implements ICalculate{
 
     Scanner userScanner = new Scanner(System.in);
 
-    public CalculatorApp() {
+    public CalculatorApp() throws ExceptionFrom1To10 {
         System.out.println("Введите пример или 0, если хотите завершить\nInput:");
         String userText = userScanner.nextLine();
 
@@ -51,6 +51,4 @@ public class CalculatorApp implements ICalculate{
         }
         return  res;
     }
-
-
 }

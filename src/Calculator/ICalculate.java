@@ -2,27 +2,31 @@ package Calculator;
 
 public interface ICalculate {
 
-    static long calculateArabicNumber(int x, int y, char sign) {
+    static long calculateArabicNumber(int x, int y, char sign) throws ExceptionFrom1To10 {
         long z = 0;
 
-        switch (sign) {
-            case ('+') :
-                z = (x + y);
-                break;
-            case ('-') :
-                z = (x - y);
-                break;
-            case ('*') :
-                z =  x*y;
-                break;
-            case ('/') :
-                try {
-                    z = x/y;
-                } catch (ArithmeticException e) {
-                    System.err.println("На ноль делить нельзя!");
-                    e.printStackTrace();
-                }
-                break;
+        if ((x>=1 && x <= 10) && (y>=1 && y <=10)) {
+            switch (sign) {
+                case ('+'):
+                    z = (x + y);
+                    break;
+                case ('-'):
+                    z = (x - y);
+                    break;
+                case ('*'):
+                    z = x * y;
+                    break;
+                case ('/'):
+                    try {
+                        z = x / y;
+                    } catch (ArithmeticException e) {
+                        System.err.println("На ноль делить нельзя!");
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+        } else {
+            throw new ExceptionFrom1To10();
         }
         return z;
     }
@@ -39,7 +43,7 @@ public interface ICalculate {
         return roman;
     }
 
-    static long calculateRomanNumber(String rom1, String rom2, char sign) {
+    static long calculateRomanNumber(String rom1, String rom2, char sign) throws ExceptionFrom1To10 {
         int x = romanToArabic(rom1);
         int y = romanToArabic(rom2);
 
